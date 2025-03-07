@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import {useUserAuth} from "../../hooks/useUserAuth";
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosinstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import InfoCard from '../../components/Cards/InfoCard';
@@ -9,6 +9,10 @@ import InfoCard from '../../components/Cards/InfoCard';
 import { LuHandCoins, LuWalletMinimal } from 'react-icons/lu';
 import {IoMdCard} from "react-icons/io";
 import { addThousandsSeparator } from '../../utils/helper';
+import RecentTransactions from '../../components/Dashboard/RecentTransactions';
+import FinanceOverview from '../../components/Dashboard/FinanceOverview';
+import ExpenseTransactions from './ExpenseTransactions';
+import Last30DaysExpenses from './last30DaysExpenses';
 
 const Home = () => {
   useUserAuth();
@@ -28,6 +32,7 @@ const Home = () => {
         `${API_PATHS.DASHBOARD.GET_DATA}`
       );
       if(response.data){
+        console.log("data",response.data);
         setDashboardData(response.data);
       }
     } catch (error) {
@@ -57,7 +62,7 @@ const Home = () => {
           <InfoCard
           icon = {<LuHandCoins/>}
           label="Total Income"
-          value = {addThousandsSeparator(dashboardData?.totalBalance || 0)}
+          value = {addThousandsSeparator(dashboardData?.totalIncome || 0)}
           color = "bg-orange-500"></InfoCard>
 
           <InfoCard
@@ -67,9 +72,22 @@ const Home = () => {
           color = "bg-red-500"></InfoCard>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
-          <RecentTransactions 
-          transactios = {dashboardData?.recentTransactions}
+          {/* <RecentTransactions
+          transactions = {dashboardData?.recentTransations}
           onSeeMore = {() => navigate("/expense")}></RecentTransactions>
+
+          <FinanceOverview
+            totalBalance ={dashboardData?.totalBalance || 0}
+            totalIncome = {dashboardData?.totalIncome || 0}
+            totalExpense ={dashboardData?.totalExpense || 0} 
+          ></FinanceOverview> */}
+
+          <ExpenseTransactions
+            transactions = {dashboardData?.last30DaysExpenses?.transactions || []}
+            onSeeMore = {() => navigate("/expense")}/>
+
+            <Last30DaysExpenses
+            data={dashboardData?.last30DaysExpenses?.transactions || []}/>
         </div>
       </div>
     </DashboardLayout>
