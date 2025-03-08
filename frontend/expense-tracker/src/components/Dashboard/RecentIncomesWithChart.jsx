@@ -7,9 +7,6 @@ const RecentIncomesWithChart = ({data, totalIncome}) => {
 
     const [chartData, setChartData] = useState([]);
 
-    console.log("Chart Data:", chartData);
-    console.log("Total Income:", totalIncome);
-
     const prepareChartData = () => {
         const dataArr = data?.map((item) => ({
             name: item?.source,

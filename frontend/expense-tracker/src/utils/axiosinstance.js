@@ -2,11 +2,11 @@ import axios from "axios";
 import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
-    baseURL:BASE_URL,
-    timeout:10000,
-    headers:{
+    baseURL: BASE_URL,
+    timeout: 10000,
+    headers: {
         "Content-Type": "application/json",
-        Accept:"application/json",
+        Accept: "application/json",
     },
 });
 
@@ -14,12 +14,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         const accessToken = localStorage.getItem("token");
-        if(accessToken) {
+        if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
         return config;
     },
-    (error) =>{
+    (error) => {
         return Promise.reject(error);
     }
 );
@@ -31,11 +31,11 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         //Handle common errors globally
-        if(error.response){
-            if(error.response.status === 401){
+        if (error.response) {
+            if (error.response.status === 401) {
                 //redirect to login page
-                window.location.href="/login";
-            } else if (error.response.status === 500){
+                window.location.href = "/login";
+            } else if (error.response.status === 500) {
                 console.error("Server erroe. Please try again later.");
             }
         } else if (error.code === "ECONNABORTED") {

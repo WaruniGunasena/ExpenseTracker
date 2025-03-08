@@ -5,15 +5,15 @@ const Expense = require("../models/Expense");
 exports.addExpense = async (req, res) => {
     const userId = req.user.id;
 
-    try{
-        const { icon, category, amount, date} = req.body;
+    try {
+        const { icon, category, amount, date } = req.body;
 
         //validation: check for missing feilds
         if (!category || !amount || !date) {
-            return res.status(400).json({messeage: " All feilds are required"});
+            return res.status(400).json({ messeage: " All feilds are required" });
         }
 
-        const newExpense = new Expense ({
+        const newExpense = new Expense({
             userId,
             icon,
             category,
@@ -24,16 +24,16 @@ exports.addExpense = async (req, res) => {
         await newExpense.save();
         res.status(200).json(newExpense);
     } catch (error) {
-        res.status(500).json({message: "Server Error"});
+        res.status(500).json({ message: "Server Error" });
     }
 };
 
 //Get all expense sources
-exports.getAllExpense = async (req,res) => {
+exports.getAllExpense = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const expense = await Expense.find({userId}).sort({date: -1});
+        const expense = await Expense.find({ userId }).sort({ date: -1 });
         res.json(expense);
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
@@ -41,11 +41,11 @@ exports.getAllExpense = async (req,res) => {
 };
 
 //Delete expense source
-exports.deleteExpense =async(req, res) => {
+exports.deleteExpense = async (req, res) => {
 
     try {
         await Expense.findByIdAndDelete(req.params.id);
-        res.json({message: "Expense deleted successfully"});
+        res.json({ message: "Expense deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
@@ -56,7 +56,7 @@ exports.downloadExpenseExcel = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const expense = await Expense.find({userId}).sort({date:-1});
+        const expense = await Expense.find({ userId }).sort({ date: -1 });
 
         //prepare data for Excel
         const data = expense.map((item) => ({
@@ -71,6 +71,6 @@ exports.downloadExpenseExcel = async (req, res) => {
         xlsx.writeFile(wb, 'expense_details.xlsx');
         res.download('expense_details.xlsx');
     } catch (error) {
-        res.status(500).json({message: " Server Error"});
+        res.status(500).json({ message: " Server Error" });
     }
 };

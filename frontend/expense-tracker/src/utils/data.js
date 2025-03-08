@@ -7,27 +7,27 @@ import {
 
 export const SIDE_MENU_DATA = [
     {
-        id:"01",
-        label:"Dashboard",
+        id: "01",
+        label: "Dashboard",
         icon: LuLayoutDashboard,
-        path:"/dashboard",
+        path: "/dashboard",
     },
     {
-        id:"02",
-        label:"Income",
+        id: "02",
+        label: "Income",
         icon: LuWalletMinimal,
-        path:"/income",
+        path: "/income",
     },
     {
-        id:"03",
-        label:"Expense",
-        icon:LuHandCoins,
-        path:"/expense",
+        id: "03",
+        label: "Expense",
+        icon: LuHandCoins,
+        path: "/expense",
     },
     {
-        id:"06",
-        label:"Logout",
-        icon:LuLogOut,
-        path:"logout",
+        id: "06",
+        label: "Logout",
+        icon: LuLogOut,
+        path: "logout",
     },
 ];

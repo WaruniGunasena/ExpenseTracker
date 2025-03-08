@@ -34,7 +34,7 @@ const Home = () => {
         `${API_PATHS.DASHBOARD.GET_DATA}`
       );
       if(response.data){
-        console.log("data",response.data);
+        
         setDashboardData(response.data);
       }
     } catch (error) {
