@@ -14,13 +14,13 @@ export const API_PATHS = {
         ADD_INCOME:"/api/vl/income/add",
         GET_ALL_INCOME:"/api/vl/income/get",
         DELETE_INCOME: (incomeId) => `/api/vl/income/${incomeId}`,
-        DOWNLOAD_INCOME: `/api/vl/income/downloadExcel`,
+        DOWNLOAD_INCOME: `/api/vl/income/downloadEcel`,
     },
     EXPENSE: {
         ADD_EXPENSE: "/api/vl/expense/add",
         GET_ALL_EXPENSE: "/api/vl/expense/get",
         DELETE_EXPENSE: (expenseId) => `/api/vl/expense/${expenseId}`,
-        DOWNLOAD_EXPENSE: `/api/vl/expense/downloadExcel`,
+        DOWNLOAD_EXPENSE: `/api/vl/expense/downloadEcel`,
     },
     IMAGE: {
         UPLOAD_IMAGE:"/api/vl/auth/upload-image",
