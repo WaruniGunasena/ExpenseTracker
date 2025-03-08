@@ -1,3 +1,6 @@
+import moment from "moment";
+import { data } from "react-router-dom";
+
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -10,7 +13,7 @@ export const getInitials = (name) =>{
     let initials ="";
 
     for (let i =0; i< Math.min(words.length, 2); i++){
-        initials += words[i][0];
+        initials += words[i][0];    
     }
     return initials.toUpperCase();
 };
@@ -31,5 +34,17 @@ export const prepareExpenseBarChartData = (data = []) => {
         category: item?.category,
         amount: item?.amount,
     }));
+    return chartData;
+};
+
+export const prepareIncomeBarChartData = (data = []) => {
+    const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+    const chartData = sortedData.map((item) => ({
+        month: moment(item?.date).format('Do MMM'),
+        amount: item?.amount,
+        source: item?.source,
+    }));
+    console.log("chartddd" ,chartData);
     return chartData;
 };
